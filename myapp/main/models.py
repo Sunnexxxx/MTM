@@ -37,3 +37,17 @@ class Icecream(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
+
+
+class Sold(models.Model):
+    icecream = models.ForeignKey(Icecream, on_delete=models.CASCADE)
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    date = models.DateField('Date')
+    price = models.PositiveIntegerField('Price')
+
+    def __str__(self):
+        return '{} - {} - {}'.format(self.icecream, self.shop, self.date)
+
+    class Meta:
+        ordering = ['-id']
+        unique_together = ('icecream', 'shop')
